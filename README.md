@@ -208,19 +208,19 @@ All operations are logged in the *Stock Ledger*.
 
 # Folder Structure
 
-StockMaster/
-│── frontend/
-│ ├── components/
-│ ├── pages/
-│ ├── context/
-│ └── api.js
+StockMaster/<br>
+│── frontend/<br>
+│ ├── components/<br>
+│ ├── pages/<br>
+│ ├── context/<br>
+│ └── api.js<br>
 │
-└── backend/
-├── models/
-├── routes/
-├── controllers/
-├── middleware/
-└── server.js
+└── backend/<br>
+├── models/<br>
+├── routes/<br>
+├── controllers/<br>
+├── middleware/<br>
+└── server.js<br>
 
 ---
 
