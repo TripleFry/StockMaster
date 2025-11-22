@@ -13,78 +13,225 @@ Vedanth Dhagay, Navya Sinha, Anuj Gite, Shubham Barve
 
 Hackathon: Odoo x SPIT Hackathon, 22 November 2025
 
-# **StockMaster**  
+# StockMaster – Inventory Management System (IMS)
 
-## Vision
-
-To empower businesses with a smart, reliable, and real-time inventory platform ensuring 
-Accurate stock visibility, Faster operations, Elimination of manual errors, Structured, scalable workflow for warehouses
-
-StockMaster focuses on clarity, automation, and ease of use—so teams always operate with the correct stock information at the right time.
+StockMaster is a modern, modular Inventory Management System designed to replace manual registers, Excel sheets, and scattered workflows with a centralized digital platform.  
+It enables smooth handling of *product management, **warehouse operations, **stock movement, and **real-time monitoring*.
 
 ---
 
-## Mission
-StockMaster aims to digitize the entire inventory lifecycle by providing tools for:
+## Features
 
-Managing stock In/Out activities
-Tracking operations across warehouses and locations
-Viewing real-time stock levels and movement history
-Ensuring transparent, traceable stock adjustments
-Providing clean dashboards for quick decision-making
-The system follows a modular architecture, making it suitable for small workshops, mid-sized warehouses, and enterprise-level facilities alike.
----
-
-## Problem Statement
- Build a modular Inventory Management System (IMS) that digitizes and 
-streamlines all stock-related operations within a business. The goal is to replace 
-manual registers, Excel sheets, and scattered tracking methods with a centralized, 
-real-time, easy-to-use app
+### Authentication
+- Login with email + password  
+- OTP-based password reset  
+- Persistent sessions  
+- Role-based access (Manager / Staff)  
+- Auto-redirect to Dashboard  
 
 ---
 
-## Core Features
-StockMaster provides a clean, modular, and real-time system to manage all warehouse operations visually and efficiently.
+## Dashboard
+The Dashboard provides a quick snapshot of warehouse activity:
 
-1. Stock Overview
-A clear, table-based view displaying:
-Product name
-Per-unit cost
-On-hand quantity
+### *KPI Cards*
+- Total Products in Stock  
+- Low Stock / Out-of-Stock Items  
+- Pending Receipts  
+- Pending Deliveries  
+- Scheduled Internal Transfers  
+
+### *Smart Filters*
+Filter any inventory document by:
+- Document type: *Receipts / Deliveries / Internal Transfers / Adjustments*  
+- Status: *Draft, Waiting, Ready, Done, Canceled*  
+- Warehouse / Location  
+- Product Category  
+
+---
+
+#  Modules
+
+## 1 Product Management
+- Create & update products  
+- SKU / Product Code  
+- Category  
+- Unit of Measure  
+- Product image  
+- Initial stock (optional)  
+- Stock availability per warehouse  
+- Reordering rules  
+
+---
+
+## 2 Receipts (Incoming Stock)
+Used when items arrive from vendors.
+
+### Workflow:
+1. Create receipt  
+2. Add supplier & products  
+3. Enter received quantity  
+4. Validate → stock *increases automatically*
+
+*Example:*  
+Receive 50 units of Steel Rods → stock *+50*
+
+---
+
+## 3 Delivery Orders (Outgoing Stock)
+Used when goods are shipped to customers.
+
+### Workflow:
+1. Pick  
+2. Pack  
+3. Validate → stock *decreases automatically*
+
+*Example:*  
+Deliver 10 Chairs → stock *–10*
+
+---
+
+## 4 Internal Transfers
+Move stock within your organization.
+
+Examples:
+- Main Warehouse → Production Floor  
+- Rack A → Rack B  
+- Warehouse 1 → Warehouse 2  
+
+The total stock remains the same only the *location changes*.  
+Every movement is logged in the *Stock Ledger*.
+
+---
+
+## 5 Stock Adjustments
+Fix mismatches between system records and physical inventory.
+
+### Steps:
+1. Select product & location  
+2. Enter actual counted quantity  
+3. System updates the stock and logs the adjustment  
+
+Examples:
+- Damaged goods  
+- Lost items  
+- Miscount correction  
+
+Includes:
+- Low-stock alerts  
+- Multi-warehouse support  
+
+---
+
+## Move History
+A complete audit trail of:
+- Receipts  
+- Deliveries  
+- Internal Transfers  
+- Adjustments  
+
+Logs:
+- Date  
+- User  
+- Product  
+- From → To  
+- Status  
+- Quantity  
+
+---
+
+# Settings Module
+
+### *Warehouse Management*
+- Create / edit warehouses  
+- Manage rack/row/bin locations  
+- Enable/disable warehouses  
+
+### *User Profile*
+- View profile  
+- Change password  
+- Logout  
+
+---
+
+# Frontend Features (React)
+- Modern UI with TailwindCSS  
+- Framer Motion animations  
+- List & Grid view toggle  
+- Debounced search bar  
+- Smart sorting & filtering  
+- Toast notifications  
+- Image previews  
+- Loading skeletons  
+- Dark mode ready  
+
+---
+
+# Backend Features (Node + Express + MongoDB)
+- JWT authentication  
+- OTP email service  
+- Role-based authorization  
+- Complete CRUD for:
+  - Products  
+  - Warehouses  
+  - Receipts  
+  - Deliveries  
+  - Internal Transfers  
+  - Adjustments  
+- Auto-updating Stock Ledger  
+- Global error handling  
+- Request logging  
+
+---
+
+#  Inventory Flow Example
+
+### Step 1 — Receive Goods
+Receive *100 kg Steel*  
+→ Stock: *+100*
+
+### Step 2 — Move to Production Rack  
+Internal transfer Main Store → Production  
+→ Location updated
+
+### Step 3 — Deliver Items  
+Deliver *20 kg Steel*  
+→ Stock: *–20*
+
+### Step 4 — Adjustment  
+3 kg damaged  
+→ Stock: *–3*
+
+All operations are logged in the *Stock Ledger*.
+
+---
+
+# Folder Structure
+
+StockMaster/
+│── frontend/
+│ ├── components/
+│ ├── pages/
+│ ├── context/
+│ └── api.js
+│
+└── backend/
+├── models/
+├── routes/
+├── controllers/
+├── middleware/
+└── server.js
+
+---
+
+#  Installation & Setup
 
 
-2. Operations Management
+```bash
+cd backend
+npm install
+npm run dev
 
-Organized into three operation types:
-
-Receipts
-Delivery
-Adjustments
-
-Users can:
-Create new operations
-Edit details
-Change status as materials move
-
-3. Move History
-A chronological list of all warehouse movements, showing:
-Reference
-Date
-Contact
-From/To movement
-Quantity
-Status
-
-4. Locations & Vendors
-Simple forms to manage:
-Warehouse locations
-Vendor/contact details
-
-5. Dashboard
-A summarized view showing
-Pending receipts
-Pending deliveries
-Late operations
-Overall operation counts
-
-6. jwt for authentication, bcrypt library for hashing , otp verificationfor password change , Kanban board
+cd frontend
+npm install
+npm run dev
