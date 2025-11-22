@@ -87,3 +87,4 @@ Pending deliveries
 Late operations
 Overall operation counts
 
+6. jwt for authentication, bcrypt library for hashing , otp verificationfor password change , Kanban board
